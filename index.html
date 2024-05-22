@@ -12,7 +12,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative;
+            position: relative; /* Necessário para posicionamento absoluto funcionar */
             background-image: url('https://cdn.pixabay.com/photo/2020/11/01/15/26/road-5704083_1280.jpg'); /* Imagem de fundo fixa */
             background-size: cover; /* Garante que a imagem de fundo fixa preencha a tela */
             background-position: center;
@@ -26,6 +26,7 @@
             cursor: pointer;
             left: 50px; /* Posição horizontal inicial */
             top: 50px;  /* Posição vertical inicial */
+            z-index: 1000; /* Garante que o botão fique acima da imagem sobreposta */
         }
         #overlayImageContainer {
             position: absolute;
@@ -36,7 +37,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(0, 0, 0, 0.5); /* Semitransparente para diferenciar da imagem de fundo */
             visibility: hidden; /* Inicialmente invisível */
         }
         #overlayImageContainer img {
