@@ -13,6 +13,9 @@
             align-items: center;
             overflow: hidden;
             position: relative; /* Necessário para posicionamento absoluto funcionar */
+            background-image: url('https://cdn.pixabay.com/photo/2020/11/01/15/26/road-5704083_1280.jpg'); /* Substitua pelo link da sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
         }
         #draggableButton {
             position: absolute;
@@ -65,7 +68,7 @@
         displayedImage.src = imageUrls[currentImageIndex];
         imageContainer.style.display = 'block';
 
-        // Ocultar a imagem após 5 segundos
+        // Ocultar a imagem após 15 segundos
         setTimeout(() => {
             imageContainer.style.display = 'none';
         }, 5000);
