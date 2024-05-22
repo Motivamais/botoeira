@@ -14,8 +14,9 @@
             overflow: hidden;
             position: relative; /* Necessário para posicionamento absoluto funcionar */
             background-image: url('https://cdn.pixabay.com/photo/2020/11/01/15/26/road-5704083_1280.jpg'); /* Imagem de fundo inicial */
-            background-size: cover;
+            background-size: contain; /* Garante que a imagem se ajuste dentro da tela */
             background-position: center;
+            background-repeat: no-repeat; /* Evita a repetição da imagem */
         }
         #draggableButton {
             position: absolute;
