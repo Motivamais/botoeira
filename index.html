@@ -13,7 +13,7 @@
             align-items: center;
             overflow: hidden;
             position: relative; /* Necessário para posicionamento absoluto funcionar */
-            background-image: url('https://cdn.pixabay.com/photo/2020/11/01/15/26/road-5704083_1280.jpg'); /* Substitua pelo link da sua imagem de fundo */
+            background-image: url('https://cdn.pixabay.com/photo/2020/11/01/15/26/road-5704083_1280.jpg'); /* Imagem de fundo inicial */
             background-size: cover;
             background-position: center;
         }
@@ -27,33 +27,14 @@
             left: 50px; /* Posição horizontal inicial */
             top: 50px;  /* Posição vertical inicial */
         }
-        #imageContainer {
-            display: none;
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-        #imageContainer img {     
-            width: 2000px; /* Ajuste a largura desejada */
-            height: auto;
-            max-width: 100%;
-            max-height: 100vh;
-        }
     </style>
 </head>
 <body>
 
-<button id="draggableButton">Show Image</button>
-<div id="imageContainer">
-    <img id="displayedImage" src="" alt="Image">
-</div>
+<button id="draggableButton">Change Background</button>
 
 <script>
     const button = document.getElementById('draggableButton');
-    const imageContainer = document.getElementById('imageContainer');
-    const displayedImage = document.getElementById('displayedImage');
 
     const imageUrls = [
         'https://cdn.pixabay.com/photo/2017/03/27/14/56/auto-2179220_1280.jpg', // Substitua pelos links das suas imagens
@@ -66,14 +47,8 @@
     let currentImageIndex = 0;
 
     button.addEventListener('click', function () {
-        // Mostrar a próxima imagem
-        displayedImage.src = imageUrls[currentImageIndex];
-        imageContainer.style.display = 'block';
-
-        // Ocultar a imagem após 15 segundos
-        setTimeout(() => {
-            imageContainer.style.display = 'none';
-        }, 5000);
+        // Mudar a imagem de fundo
+        document.body.style.backgroundImage = `url(${imageUrls[currentImageIndex]})`;
 
         // Atualizar o índice para a próxima imagem
         currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
