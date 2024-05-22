@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main  # Certifique-se de que isto está apontando para o branch correto
+    branches: main
+      
 
 permissions:
   id-token: write
