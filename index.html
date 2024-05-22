@@ -26,9 +26,9 @@
             cursor: pointer;
             left: 50px; /* Posição horizontal inicial */
             top: 50px;  /* Posição vertical inicial */
-            z-index: 1000; /* Garante que o botão fique acima da imagem sobreposta */
+            z-index: 1000; /* Garante que o botão fique acima do vídeo sobreposto */
         }
-        #overlayImageContainer {
+        #overlayVideoContainer {
             position: absolute;
             top: 0;
             left: 0;
@@ -39,7 +39,7 @@
             align-items: center;
             visibility: hidden; /* Inicialmente invisível */
         }
-        #overlayImageContainer img {
+        #overlayVideoContainer video {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
@@ -48,36 +48,40 @@
 </head>
 <body>
 
-<button id="draggableButton">MOTIVA MAIS </button>
-<div id="overlayImageContainer">
-    <img id="overlayImage" src="" alt="Overlay Image">
+<button id="draggableButton">Change Background</button>
+<div id="overlayVideoContainer">
+    <video id="overlayVideo" controls>
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>
 
 <script>
     const button = document.getElementById('draggableButton');
-    const overlayImageContainer = document.getElementById('overlayImageContainer');
-    const overlayImage = document.getElementById('overlayImage');
+    const overlayVideoContainer = document.getElementById('overlayVideoContainer');
+    const overlayVideo = document.getElementById('overlayVideo');
 
-    const imageUrls = [
-        'https://cdn.pixabay.com/video/2024/03/31/206294_large.mp4', // Substitua pelos links das suas imagens
-        'https://cdn.pixabay.com/photo/2017/03/28/12/10/chairs-2181947_960_720.jpg',
-        'https://media.istockphoto.com/id/1443409611/pt/foto/man-on-stone-on-the-hill-and-beautiful-mountains-in-haze-at-colorful-sunset-in-autumn.jpg?s=1024x1024&w=is&k=20&c=UE9l5_u6c12ByIQPkHwyGrQjahpMsSFXw8WwtgS-PN4=',
-        'https://cdn.pixabay.com/photo/2017/08/03/16/44/landscape-2577207_960_720.jpg',
-        'https://cdn.pixabay.com/photo/2018/01/25/13/29/fog-3106134_960_720.jpg'
+    const videoUrls = [
+        'https://cdn.pixabay.com/video/2024/03/31/206294_large.mp4', // Substitua pelos links dos seus vídeos
+        'https://media.istockphoto.com/id/1365682139/pt/v%C3%ADdeo/beagle-dog-kick-the-skateboard-and-rides-in-park-pet-dog-skateboarding-outdoor-slow-motion.mp4?s=mp4-640x640-is&k=20&c=D8t8Be24lMSHUsDu_bjP3ulWWUzSiRV5M7XXVQoUJVU=',
+       ´https://media.istockphoto.com/id/1175084102/pt/v%C3%ADdeo/cute-fat-dog-of-dachshund-black-and-tan-lies-sunbathing-at-the-beach-sea-on-summer-vacation.mp4?s=mp4-640x640-is&k=20&c=Unpi6W8GUGhcFrIFCNDWu2JMZuXsCB5W-_H2oJTtcf8=`, // Adicione mais links de vídeos conforme necessário
     ];
 
-    let currentImageIndex = 0;
+    let currentVideoIndex = 0;
 
     button.addEventListener('click', function () {
-        if (currentImageIndex < imageUrls.length) {
-            // Mostrar a próxima imagem sobre a imagem de fundo fixa
-            overlayImage.src = imageUrls[currentImageIndex];
-            overlayImageContainer.style.visibility = 'visible';
-            currentImageIndex++;
+        if (currentVideoIndex < videoUrls.length) {
+            // Mostrar o próximo vídeo sobre a imagem de fundo fixa
+            overlayVideo.src = videoUrls[currentVideoIndex];
+            overlayVideoContainer.style.visibility = 'visible';
+            overlayVideo.play();
+            currentVideoIndex++;
         } else {
-            // Ocultar a imagem sobreposta e voltar à tela de fundo inicial
-            overlayImageContainer.style.visibility = 'hidden';
-            currentImageIndex = 0; // Reiniciar o ciclo de imagens
+            // Ocultar o vídeo sobreposto e voltar à tela de fundo inicial
+            overlayVideoContainer.style.visibility = 'hidden';
+            overlayVideo.pause();
+            overlayVideo.src = '';
+            currentVideoIndex = 0; // Reiniciar o ciclo de vídeos
         }
     });
 
