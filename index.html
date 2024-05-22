@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Button</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #draggableButton {
+            position: absolute;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<button id="draggableButton">Drag me</button>
+
+<script>
+    const button = document.getElementById('draggableButton');
+
+    button.addEventListener('mousedown', function (e) {
+        const rect = button.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+
+        function mouseMoveHandler(e) {
+            button.style.left = `${e.clientX - offsetX}px`;
+            button.style.top = `${e.clientY - offsetY}px`;
+        }
+
+        function mouseUpHandler() {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    });
+
+    button.addEventListener('touchstart', function (e) {
+        const touch = e.targetTouches[0];
+        const rect = button.getBoundingClientRect();
+        const offsetX = touch.clientX - rect.left;
+        const offsetY = touch.clientY - rect.top;
+
+        function touchMoveHandler(e) {
+            const touch = e.targetTouches[0];
+            button.style.left = `${touch.clientX - offsetX}px`;
+            button.style.top = `${touch.clientY - offsetY}px`;
+        }
+
+        function touchEndHandler() {
+            document.removeEventListener('touchmove', touchMoveHandler);
+            document.removeEventListener('touchend', touchEndHandler);
+        }
+
+        document.addEventListener('touchmove', touchMoveHandler);
+        document.addEventListener('touchend', touchEndHandler);
+    });
+</script>
+
+</body>
+</html>
