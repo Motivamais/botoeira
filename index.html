@@ -1,4 +1,4 @@
-Quero agora que ao clicar no botão mude as imagens e a imagem só mude para a próxima depois que eu clicar no botão não quero que tenha mais o tempo. E quero também que sempre é a última imagem já seja a própria tela de fundo ou seja a pessoa vai clicando no botão e vai mudando as imagens quando acabar tudo nas imagens o que volte e fique só na tela de fundo que já está no site  e depois quando clicar comece tudo de novo, você entendeu?<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,7 +48,7 @@ Quero agora que ao clicar no botão mude as imagens e a imagem só mude para a p
 </head>
 <body>
 
-<button id="draggableButton">MOTIVAMAIS</button>
+<button id="draggableButton">Change Background</button>
 <div id="overlayImageContainer">
     <img id="overlayImage" src="" alt="Overlay Image">
 </div>
@@ -69,17 +69,16 @@ Quero agora que ao clicar no botão mude as imagens e a imagem só mude para a p
     let currentImageIndex = 0;
 
     button.addEventListener('click', function () {
-        // Mostrar a próxima imagem sobre a imagem de fundo fixa
-        overlayImage.src = imageUrls[currentImageIndex];
-        overlayImageContainer.style.visibility = 'visible';
-
-        
-        setTimeout(() => {
+        if (currentImageIndex < imageUrls.length) {
+            // Mostrar a próxima imagem sobre a imagem de fundo fixa
+            overlayImage.src = imageUrls[currentImageIndex];
+            overlayImageContainer.style.visibility = 'visible';
+            currentImageIndex++;
+        } else {
+            // Ocultar a imagem sobreposta e voltar à tela de fundo inicial
             overlayImageContainer.style.visibility = 'hidden';
-        }, 5000);
-
-        // Atualizar o índice para a próxima imagem
-        currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+            currentImageIndex = 0; // Reiniciar o ciclo de imagens
+        }
     });
 
     // Código para arrastar o botão (o mesmo que antes)
