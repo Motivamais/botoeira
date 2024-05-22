@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative; /* Necessário para posicionamento absoluto funcionar */
         }
         #draggableButton {
             position: absolute;
@@ -20,10 +21,10 @@
             color: white;
             border: none;
             cursor: pointer;
-             left: 50px; /* Posição horizontal inicial */
+            left: 50px; /* Posição horizontal inicial */
             top: 50px;  /* Posição vertical inicial */
         }
-        #videoContainer {
+        #imageContainer {
             display: none;
             position: absolute;
             top: 10%;
@@ -31,20 +32,49 @@
             transform: translateX(-50%);
             z-index: 10;
         }
+        #imageContainer img {
+            max-width: 100%;
+            max-height: 100vh;
+        }
     </style>
 </head>
 <body>
 
-<button id="draggableButton">Drag me</button>
-<div id="videoContainer">
-    <iframe id="youtubeVideo" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<button id="draggableButton">Show Image</button>
+<div id="imageContainer">
+    <img id="displayedImage" src="" alt="Image">
 </div>
 
 <script>
     const button = document.getElementById('draggableButton');
-    const videoContainer = document.getElementById('videoContainer');
-    const youtubeVideo = document.getElementById('youtubeVideo');
+    const imageContainer = document.getElementById('imageContainer');
+    const displayedImage = document.getElementById('displayedImage');
 
+    const imageUrls = [
+        'https://cdn.pixabay.com/photo/2017/03/27/14/56/auto-2179220_1280.jpg', // Substitua pelos links das suas imagens
+        'https://cdn.pixabay.com/photo/2017/03/28/12/10/chairs-2181947_960_720.jpg',
+        'https://media.istockphoto.com/id/1443409611/pt/foto/man-on-stone-on-the-hill-and-beautiful-mountains-in-haze-at-colorful-sunset-in-autumn.jpg?s=1024x1024&w=is&k=20&c=UE9l5_u6c12ByIQPkHwyGrQjahpMsSFXw8WwtgS-PN4=',
+        'https://cdn.pixabay.com/photo/2017/08/03/16/44/landscape-2577207_960_720.jpg',
+        'https://cdn.pixabay.com/photo/2018/01/25/13/29/fog-3106134_960_720.jpg'
+    ];
+
+    let currentImageIndex = 0;
+
+    button.addEventListener('click', function () {
+        // Mostrar a próxima imagem
+        displayedImage.src = imageUrls[currentImageIndex];
+        imageContainer.style.display = 'block';
+
+        // Ocultar a imagem após 5 segundos
+        setTimeout(() => {
+            imageContainer.style.display = 'none';
+        }, 5000);
+
+        // Atualizar o índice para a próxima imagem
+        currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+    });
+
+    // Código para arrastar o botão (o mesmo que antes)
     button.addEventListener('mousedown', function (e) {
         const rect = button.getBoundingClientRect();
         const offsetX = e.clientX - rect.left;
@@ -83,12 +113,6 @@
 
         document.addEventListener('touchmove', touchMoveHandler);
         document.addEventListener('touchend', touchEndHandler);
-    });
-
-    button.addEventListener('click', function () {
-        var videoUrl = 'https://youtu.be/psu6VXM-q3o?si=lbIP7594C_Y3mblE'
-        youtubeVideo.src = videoUrl;
-        videoContainer.style.display = 'block';
     });
 </script>
 
