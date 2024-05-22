@@ -21,14 +21,27 @@
             border: none;
             cursor: pointer;
         }
+        #videoContainer {
+            display: none;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
 
 <button id="draggableButton">Drag me</button>
+<div id="videoContainer">
+    <iframe id="youtubeVideo" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 <script>
     const button = document.getElementById('draggableButton');
+    const videoContainer = document.getElementById('videoContainer');
+    const youtubeVideo = document.getElementById('youtubeVideo');
 
     button.addEventListener('mousedown', function (e) {
         const rect = button.getBoundingClientRect();
@@ -68,6 +81,12 @@
 
         document.addEventListener('touchmove', touchMoveHandler);
         document.addEventListener('touchend', touchEndHandler);
+    });
+
+    button.addEventListener('click', function () {
+        var videoUrl = 'https://youtu.be/psu6VXM-q3o?si=lbIP7594C_Y3mblE'
+        youtubeVideo.src = videoUrl;
+        videoContainer.style.display = 'block';
     });
 </script>
 
